@@ -32,7 +32,7 @@ jobs:
       - name: Build
         working-directory: ${{env.SOURCE_DIR}}
         run:  |
-              cmake -S ./cubiomes -B ./cubiomes/build -G "Unix Makefiles"
+              cmake -S ./cubiomes -B ./cubiomes/build 
               cmake --build ./cubiomes/build
               qmake CONFIG+=release ${{env.SOURCE_DIR}}
               CFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" make
