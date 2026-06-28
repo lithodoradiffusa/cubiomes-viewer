@@ -41,6 +41,8 @@ jobs:
       - name: Build
         working-directory: ${{env.SOURCE_DIR}}
         run:  |
+              cmake -S ./cubiomes -B ./cubiomes/build -G "MinGW Makefiles"
+              cmake --build ./cubiomes/build
               qmake CONFIG+=release ${{env.SOURCE_DIR}}
               mingw32-make
               
