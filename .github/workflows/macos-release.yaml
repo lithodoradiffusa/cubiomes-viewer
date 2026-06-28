@@ -13,7 +13,7 @@ env:
 
 jobs:
   build:
-    runs-on: macos-14
+    runs-on: macos-latest
 
     steps:
       - name: Checkout repo
@@ -32,8 +32,8 @@ jobs:
       - name: Build
         working-directory: ${{env.SOURCE_DIR}}
         run:  |
-              cmake -S ./cubiomes -B ./cubiomes/build -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Release -DCMAKE_C_FLAGS="-std=gnu11"
-              cmake --build ./cubiomes/build --config Release
+              cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_OSX_ARCHITECTURES="arm64;x86_64"
+              cmake --build build --config Release
               qmake CONFIG+=release ${{env.SOURCE_DIR}}
               CFLAGS="-isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk" make
 
