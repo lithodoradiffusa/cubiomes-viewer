@@ -30,10 +30,10 @@ jobs:
         uses: jurplel/install-qt-action@v3
         with:
           aqtversion:   '==3.1.*'
-          version:      '5.15.2'
+          version:      '6.11.0'
           host:         'windows'
           target:       'desktop'
-          arch:         'win64_mingw81'
+          arch:         'win64_mingw'
           archives:     'x86_64 qtbase qttools'
           cache:        true
           setup-python: false
