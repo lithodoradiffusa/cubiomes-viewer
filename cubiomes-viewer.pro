@@ -63,11 +63,28 @@ CONFIG(debug, debug|release): {
     CUTARGET = release
 }
 
-# compile cubiomes
+# compile cubiomes separately using cmake
+# cmake -S ./cubiomes -B ./cubiomes/build
+# cmake --build ./cubiomes/build/
+
 CUPATH              = $$PWD/cubiomes
-QMAKE_PRE_LINK      += $(MAKE) -C $$CUPATH -f $$CUPATH/makefile CC=\"$$QMAKE_CC\" CFLAGS=\"$(CFLAGS) $$QMAKE_CFLAGS\" $$CUTARGET
-QMAKE_CLEAN         += $$CUPATH/*.o $$CUPATH/libcubiomes.a
-LIBS                += $$CUPATH/libcubiomes.a -lm
+CUBUILD             = $$CUPATH/build
+
+# exists($$CUBIOMES_BUILD/CMakeCache.txt) {
+#     QMAKE_PRE_LINK += cmake --build $$CUBUILD
+# } else {
+#     QMAKE_PRE_LINK += cmake -G Ninja \
+#         -S $$CUPATH \
+#         -B $$CUBIOMES_BUILD \
+#         -DCMAKE_C_COMPILER=$$QMAKE_CC \
+#         -DCMAKE_C_FLAGS="$$QMAKE_CFLAGS" 
+#     QMAKE_PRE_LINK += cmake --build $$CUBUILD
+# }
+
+QMAKE_CLEAN         += $$CUBUILD
+LIBS                += $$CUBUILD/libcubiomes_static.a -lm
+
+INCLUDEPATH += $$CUPATH
 
 LUAPATH = $$PWD/lua/src
 
@@ -250,3 +267,6 @@ with_dbus: {
     QT += dbus
     DEFINES += "WITH_DBUS=1"
 }
+
+# generate compilation commands for clang
+CONFIG += compile_commands_json

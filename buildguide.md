@@ -1,3 +1,10 @@
+# NEW BUILD INSTRUCTIONS
+
+xpple's fork of cubiomes uses cmake, which I could not make work within qmake.
+the process is now:
+1. build cubiomes into cubiomes/build using cmake
+2. build cubiomes-viewer with qmake
+
 # Cubiomes Viewer Build Instructions
 
 Cubiomes Viewer is a Qt5 application and requires:
